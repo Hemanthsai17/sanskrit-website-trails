@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Slokas Viewer</title>
+
+	<style>
+		.big-box {
+			width: 1300px;
+			height: 150px;
+			border: 1px solid #000;
+			padding: 10px;
+		}
+
+		.small-box {
+			width: 103px;
+			height: 30px;
+			border: 1px solid #000;
+			display: inline-block;
+			margin: 5px;
+			text-align: center;
+		}
+
+		.option-label {
+			display: inline-block;
+			vertical-align: middle;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Slokas Viewer</h1>
+
+	<form action="/upload" method="POST" enctype="multipart/form-data">
+		<input type="file" name="file">
+		<input type="submit" value="Upload">
+	</form>
+<br>
+	{% if filename %}
+		<table>
+			<thead>
+				<tr>
+					<th>Sloka_Number</th>
+					<th>Sloka</th>
+					<th>Sloka_Translation</th>
+					
+				</tr>
+				<br>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{ row['Sloka_Number'] }}</td>
+					<td>{{ row['Sloka'] }}</td>
+					<td>{{ row['Sloka_Translation'] }}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<br>
+		<a href="/previous">Previous</a>
+		<a href="/next">Next</a>
+		<br>
+
+		<form action="/save" method="POST">
+			<h2>Select Options:</h2>
+			<div class="big-box">
+				{% for option in range(1, 34) %}
+					<div class="small-box">
+						<input type="checkbox" name="option{{ option }}" value="{{ option }}">
+						<label class="option-label">{{ option }}</label>
+					</div>
+				{% endfor %}
+			</div>
+			<br><br>
+			<input type="submit" value="Save">
+		</form>
+	{% endif %}
+</body>
+</html>
