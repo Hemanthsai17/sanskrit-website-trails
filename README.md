@@ -1,2 +1,2 @@
-# Project-works
-This contains all the work done, that were required to upload here for further usage. this is for the purpose of kind of documentation.
+# Sanskrit Website Trails
+This contains all the trails work done, the Data folder and the other excel files are the one we are trying to manipulate. This is for the purpose of kind of documentation.
