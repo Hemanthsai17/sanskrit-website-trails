@@ -1,5 +1,5 @@
 # Sanskrit Website Trails
-This contains all the trails work done, the Data folder and the other excel files are the one we are trying to manipulate. This is for the purpose of kind of documentation.
+This contains all the work done (trails) using flaskto create a webapp to fill data for my project in masters (Sentiment Classification and Semantic Analysis), the Data folder and the other excel files are the one we are trying to manipulate. This is for the purpose of kind of documentation.
 I would like to thank and acknowledge my helpers in doing this work, Shout out to **Tech with Tim**, **Corry Schafer**, ***ChatGPT***.
 Below is one of the trails' screengrabs where the webpage's functionality can be understood (This was the only one that was slightly looking decent):
 
