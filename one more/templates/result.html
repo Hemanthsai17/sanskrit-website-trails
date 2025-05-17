@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+</head>
+<body>
+    <h1>Result</h1>
+    <p><strong>Sloka:</strong> {{ sloka }}</p>
+    <form method="POST" action="/result">
+        <table>
+            <tr>
+                {% for column in selected_columns %}
+                    <th>{{ column }}</th>
+                {% endfor %}
+            </tr>
+            <tr>
+                {% for value in row_values %}

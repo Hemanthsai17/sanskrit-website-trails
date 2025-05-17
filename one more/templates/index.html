@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Excel Sheet</title>
+</head>
+<body>
+    <h1>Select an Excel Sheet</h1>
+    <form method="POST" action="/">
+        <select name="sheet">
+            {% for sheet in excel_sheets %}
+                <option value="{{ sheet }}">{{ sheet }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Load Sheet">
+    </form>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labeling Task</title>
+</head>
+<body>
+    <h1>{{ text }}</h1>
+    <form method="post" action="{{ url_for('label', file_index=current_file_index) }}">
+        {% for sentiment in sentiments %}
+            <input type="checkbox" name="sentiments" value="{{ sentiment }}">{{ sentiment }}<br>
+        {% endfor %}
+        <br>
+        <input type="submit" value="Next">
+    </form>
+</body>
+</html>

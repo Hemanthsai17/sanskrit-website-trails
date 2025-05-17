@@ -1,0 +1,68 @@
+<!-- Simplified labeling.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Labeling</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px; /* Adjust the max-width based on your preference */
+            margin: auto;
+            text-align: center;
+        }
+        .text-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .sentiment-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Display in 3 columns */
+            gap: 10px;
+            text-align: center;
+        }
+        .sentiment-option {
+            border: 1px solid #ccc;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sanskrit Text</h1>
+        <div class="text-container">
+            <p>{{ text }}</p>
+        </div>
+        <div class="sentiment-options">
+            <form method="post" action="{{ url_for('save_sentiments', file_name=file_name) }}">
+                {% for sentiment in sentiments %}
+                    <label class="sentiment-option">
+                        <input type="checkbox" name="sentiments" value="{{ sentiment }}">
+                        {{ sentiment }}
+                    </label>
+                {% endfor %}
+                <input type="hidden" name="selected_text" value="{{ text }}">
+                <input type="hidden" name="current_index" value="{{ current_index }}">
+                <button type="submit">Save Sentiments</button>
+            </form>
+        </div>
+        <div>
+            <form method="get" action="{{ url_for('label', file_name=file_name) }}">
+                <input type="hidden" name="current_index" value="{{ current_index }}">
+                <input type="hidden" name="direction" value="previous">
+                <button type="submit">Previous</button>
+            </form>
+            <form method="get" action="{{ url_for('label', file_name=file_name) }}">
+                <input type="hidden" name="current_index" value="{{ current_index }}">
+                <input type="hidden" name="direction" value="next">
+                <button type="submit">Next</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

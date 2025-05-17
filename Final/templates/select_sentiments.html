@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Sentiments</title>
+</head>
+<body>
+    <h1>Select sentiments for "{{ filename }}"</h1>
+    <form action="{{ url_for('select_sentiments', filename=filename) }}" method="post">
+        <label for="selected_text">Select Text:</label>
+        <select name="selected_text" id="selected_text" required>
+            {% for text in sanskrit_texts %}
+                <option value="{{ text }}">{{ text }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label>Select Sentiments:</label>
+        {% for sentiment in sentiments %}
+            <input type="checkbox" name="sentiments" value="{{ sentiment }}">{{ sentiment }}
+        {% endfor %}
+        <br>
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>

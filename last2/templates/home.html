@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Welcome to the home page!</h1>
+        <h3 class="mt-3">User Details:</h3>
+        <p><strong>Name:</strong> {{ name }}</p>
+        <p><strong>College:</strong> {{ college }}</p>
+        <p><strong>Course:</strong> {{ course }}</p>
+
+        <form method="POST" class="mt-5">
+            <div class="form-group">
+                <label for="excel_file">Select an Excel file:</label>
+                <select class="form-control" id="excel_file" name="excel_file">
+                    <option value="">Select a file</option>
+                    {% for file in excel_files %}
+                        <option value="{{ file }}" {% if file == selected_file %} selected {% endif %}>{{ file }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">View File</button>
+        </form>
+
+        {% if selected_file %}
+            <h3 class="mt-5">Selected File: {{ selected_file }}</h3>
+            {% if file_data %}
+                <div class="mt-3">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                {% for key in file_data.keys() %}
+                                    <th>{{ key }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                {% for value in file_data.values() %}
+                                    <td>{{ value }}</td>
+                                {% endfor %}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-3">
+                    <form method="POST">
+                        <div class="form-group">
+                            <input type="submit" name="previous" value="Previous" class="btn btn-primary">
+                            <input type="submit" name="next" value="Next" class="btn btn-primary"><br>
+                            <label for="options">Select options:</label>
+                            {% for option in options %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="options" value="{{ option }}">
+                                    <label class="form-check-label">{{ option }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <input type="hidden" name="excel_file" value="{{ selected_file }}">
+                        <input type="submit" name="save" value="Save" class="btn btn-primary">
+                    </form>
+                </div>
+            {% else %}
+                <p>No data available for the selected file.</p>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>

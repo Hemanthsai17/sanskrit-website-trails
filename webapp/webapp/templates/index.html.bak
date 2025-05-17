@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sloka Editor</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Sloka Number</th>
+                <th>Sloka</th>
+                <th>Sloka Annotation</th>
+                <th>Sloka Translation</th>
+                <th>Label</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <form method="POST">
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                    <td>
+                        <label for="labels{{ loop.index }}">Select a label:</label>
+                        <select id="labels{{ loop.index }}" name="label">
+                            <option value="shringara" {% if row[4] == 'shringara' %}selected{% endif %}>Shringara</option>
+                            <option value="hasya" {% if row[4] == 'hasya' %}selected{% endif %}>Hasya</option>
+                            <option value="karuna" {% if row[4] == 'karuna' %}selected{% endif %}>Karuna</option>
+                            <option value="raudra" {% if row[4] == 'raudra' %}selected{% endif %}>Raudra</option>
+                            <option value="veera" {% if row[4] == 'veera' %}selected{% endif %}>Veera</option>
+                            <option value="bhayanaka" {% if row[4] == 'bhayanaka' %}selected{% endif %}>Bhayanaka</option>
+                            <option value="bibhatsya" {% if row[4] == 'bibhatsya' %}selected{% endif %}>Bibhatsya</option>
+                            <option value="adbhuta" {% if row[4] == 'adbhuta' %}selected{% endif %}>Adbhuta</option>
+                            <option value="shanta" {% if row[4] == 'shanta' %}selected{% endif %}>Shanta</option>
+                        </select>
+                    </td>
+					
+                    <input type="hidden" name="row_index" value="{{ loop.index - 1 }}">
+                    <td><button type="submit">Save</button></td>
+                </tr>
+            </form>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

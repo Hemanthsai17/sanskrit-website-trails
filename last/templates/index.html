@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Excel Viewer</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+        }
+        .button-container {
+            margin-top: 10px;
+        }
+        .options-container {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            max-width: 300px;
+        }
+        .option-box {
+            display: inline-block;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Excel Viewer</h1>
+    <form action="/" method="post">
+        <label for="file">Select Excel File:</label>
+        <select name="file" id="file">
+            <option value="" selected disabled>Select a file</option>
+            <option value="C:\Users\sskir\Desktop\flask\last\raghuvamsha_sarga_03.xlsx">File 1</option>
+            <option value="C:\Users\sskir\Desktop\flask\last\raghuvamsha_sarga_05 .xlsx">File 2</option>
+            <!-- Add more options for your Excel files -->
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+
+    {% if file %}
+        <h2>Selected File: {{ file }}</h2>
+
+        {% if columns %}
+            <table border="1">
+                <tr>
+                    {% for column in columns %}
+                        <th>{{ column }}</th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for value in values %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+            </table>
+
+            <div class="button-container">
+                <form action="/" method="post">
+                    <input type="hidden" name="file" value="{{ file }}">
+                    <input type="hidden" name="current_row" value="{{ current_row - 1 }}">
+                    {% if current_row > 0 %}
+                        <input type="submit" value="Previous">
+                    {% endif %}
+                </form>
+                <form action="/" method="post">
+                    <input type="hidden" name="file" value="{{ file }}">
+                    <input type="hidden" name="current_row" value="{{ current_row + 1 }}">
+                    {% if current_row < num_rows - 1 %}
+                        <input type="submit" value="Next">
+                    {% endif %}
+                </form>
+            </div>
+
+            <div class="options-container">
+                <h3>Select Options:</h3>
+                <form action="/" method="post">
+                    <input type="hidden" name="file" value="{{ file }}">
+                    <input type="hidden" name="current_row" value="{{ current_row }}">
+                    <div>
+                        <div class="option-box">
+                            <input type="checkbox" name="options" id="option1" value="Option 1">
+                            <label for="option1">Option 1</label>
+                        </div>
+                        <div class="option-box">
+                            <input type="checkbox" name="options" id="option2" value="Option 2">
+                            <label for="option2">Option 2</label>
+                        </div>
+                        <!-- Add more option boxes for the remaining options -->
+                        <!-- Repeat the above code block for each option -->
+                        <div class="option-box">
+                            <input type="checkbox" name="options" id="option33" value="Option 33">
+                            <label for="option33">Option 33</label>
+                        </div>
+                    </div>
+                    <input type="submit" value="Save">
+                </form>
+            </div>
+        {% endif %}
+    {% endif %}
+</body>
+</html>

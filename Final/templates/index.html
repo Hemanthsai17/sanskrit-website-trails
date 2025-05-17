@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Sentiment Selector</title>
+    <style>
+        .text-container {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .sentiments-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .sentiment-checkbox {
+            margin: 5px;
+        }
+
+        .navigation-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Text Sentiment Selector</h1>
+
+    <form method="post" action="/update_sentiments">
+        {% if data %}
+            <div class="text-container">
+                <p>{{ data[currentIndex]['text'] }}</p>
+                <label>Sentiments:</label>
+                <div class="sentiments-container">
+                    {% for sentiment in data[currentIndex] %}
+                        {% if sentiment != 'text' %}
+                            <input type="checkbox" class="sentiment-checkbox" name="sentiments" value="{{ sentiment }}">
+                            <label>{{ sentiment }} - {{ data[currentIndex][sentiment] }}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <input type="hidden" name="selected_text" value="{{ data[currentIndex]['text'] }}">
+            </div>
+
+            <div class="navigation-buttons">
+                <button type="button" onclick="prevText()">Previous</button>
+                <button type="button" onclick="nextText()">Next</button>
+            </div>
+        {% else %}
+            <p>No data available.</p>
+        {% endif %}
+
+        <input type="submit" value="Update Sentiments">
+    </form>
+
+    <script>
+        var currentIndex = 0;
+        var texts = {{ data|tojson|safe }} || [];
+
+        function updateDisplay() {
+            if (texts.length > 0 && texts[currentIndex]) {
+                document.querySelector("input[name='selected_text']").value = texts[currentIndex]['text'];
+                var checkboxes = document.querySelectorAll("input[name='sentiments']");
+                checkboxes.forEach(function (checkbox) {
+                    checkbox.checked = false;
+                });
+            }
+        }
+
+        function prevText() {
+            if (texts.length > 0) {
+                currentIndex = (currentIndex - 1 + texts.length) % texts.length;
+                updateDisplay();
+            }
+        }
+
+        function nextText() {
+            if (texts.length > 0) {
+                currentIndex = (currentIndex + 1) % texts.length;
+                updateDisplay();
+            }
+        }
+
+        // Initial display
+        updateDisplay();
+    </script>
+</body>
+</html>
